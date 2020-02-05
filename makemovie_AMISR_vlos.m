@@ -1,11 +1,11 @@
-function makemovie_AMISR_vlos(filelab,itstart,itfin,opflag)
+function makemovie_AMISR_vlos(datadir,filelab,itstart,itfin,opflag)
 
 %This script makes plots of the usual plasma parameters in 3D slice
 %configuration.  Also makes a movie, be sure to set the operating system flag...
 
 
-load(['./datasets/data_mat/',filelab,'_rawdata.mat']); 
-load(['./datasets/data_mat/',filelab,'_fieldgrid.mat']);
+load([datadir,'/data_mat/',filelab,'_rawdata.mat']); 
+load([datadir,'/data_mat/',filelab,'_fieldgrid.mat']);
 
 
 outdir=['./plot_imgfiles/',filelab,'/PFISR/'];

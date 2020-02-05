@@ -1,10 +1,10 @@
-function plot_grid(filelab,payloadflag)
+function plot_grid(datadir,filelab,payloadflag)
 
 %LOAD DATA
 % addpath ./geom;
 % load ./datasets/data_mat/18Jan2017_0.6min_rawdata.mat;
 
-load(['./datasets/data_mat/',filelab,'_rawdata.mat']);
+load([datadir,'/data_mat/',filelab,'_rawdata.mat']);
 
 
 lp=length(az);
@@ -185,7 +185,8 @@ zlabel('altitude (km)')
 % legend([mlines,rlines,main,sub,pfisr],{'Magnetic Field Lines','Radar Beams','Main Payload','Sub Payload','PFISR'})
 % legend boxoff;
 
-print(['./plot_imgfiles/',filelab,'/ISRgrid.png'],'-dpng','-r300');
+mkdir([datadir,'/plot_imgfiles/',filelab]);
+print([datadir,'/plot_imgfiles/',filelab,'/ISRgrid.png'],'-dpng','-r300');
 
 end
 

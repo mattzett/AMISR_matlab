@@ -8,13 +8,16 @@
 
 
 clear; close all;
-addpath ./geom ./vvel ./plot_imgfiles;
+addpath ./geom ./vvel;
 
+
+datadir='~/datasets/'
 
 % PICK THE DATA 
 %filename='20170222.002_lp_2min-fitcal_ISINGLASS_A.h5';  % ISINGLASS A, 02/22/2017, 10:14:00-10:23:55 UT (subpayload), 10:14:00-10:24:52 UT (main)
 % filename='20170302.002_lp_2min-fitcal_ISINGLASS_B.h5';  % ISINGLASS B, 03/02/2017, ???
- filename='20130207.001_lp_1min-cal_VISIONS.h5';         % VISIONS, 2/7/2013
+
+filename='20130207.001_lp_1min-cal_VISIONS.h5';         % VISIONS, 2/7/2013
 %filename='20131207.003_lp_3min-cal.h5';                 % Scintilation comparison
 %filename='20131208.001_lp_1min-cal.h5';                 % Scintilation comparison
 %filename='20150318.001_lp_1min-cal.h5';                   %St. Patrick's Day storm
@@ -26,13 +29,13 @@ opflag=0; % 1 - Windows, 0 - Not Windows
 
 % CONVERTS FROM HDF5 FORMAT TO MAT FORMAT
 saveflag=1;  % 1 = make mat file, 0 = no mat file  (make the .mat files for now)
-filelab=hdf5_extract(filename,saveflag);  % produces _rawdata.mat
+filelab=hdf5_extract(datadir,filename,saveflag);  % produces _rawdata.mat
 fprintf(['AMISR --> File selected: ',filelab,'\n'])
 
 
 % SETUP IMAGE STORAGE LOCATION
 fprintf('AMISR --> Setting up storage locations\n');
-outdir=['./plot_imgfiles/',filelab];
+outdir=['~/Downloads/plot_imgfiles/',filelab];
 if ~exist(outdir)
     mkdir(outdir);
 else
@@ -41,7 +44,7 @@ end
 
 
 % SELECT THE TIME STEPS TO PLOT
-load(['./datasets/data_mat/',filelab,'_rawdata.mat']);  % loads up data to determine total time frames and relevant UT times
+load([datadir,'/data_mat/',filelab,'_rawdata.mat']);  % loads up data to determine total time frames and relevant UT times
 itstart   = 1;  % start time frame
 itfin     = size(isne,3); % end time frame
 % itstart = 100; % can pick a specific time frame window if desired
@@ -55,27 +58,27 @@ fprintf(['AMISR --> ',num2str(starting),' UT to ',num2str(fining),' UT\n']);
 % PLOTS BEAMS AND MAG FIELD 
 fprintf('AMISR --> Plotting beams and magnetic field lines\n');
 payloadflag=3;    % 0 = no rocket trajectory, 1 = ISINGLASS A, 2 = ISINGLASS B, 3 = VISIONS
-plot_grid(filelab,payloadflag)
+plot_grid(datadir,filelab,payloadflag)
 
 
 % CALCULATES THE BEAM ENU COORDINATES
 fprintf('AMISR --> Prepping fieldgrid data\n');
-grid_ISR(filelab)
+grid_ISR(datadir,filelab)
 
 
 % PLOTS 3D PFISR DATA (AND MAKES A MOVIE)
 fprintf('AMISR --> Plotting altitudes of PFISR data\n');
-makemovie_AMISR_vlos(filelab,itstart,itfin,opflag)
+makemovie_AMISR_vlos(datadir,filelab,itstart,itfin,opflag)
 
 
 % ESTIMATES FLOW FIELDS (BUTLER 2010 METHOD)
 fprintf('AMISR --> Calculating velocities\n');
-estimate_flowfield(filelab,itstart,itfin)
+estimate_flowfield(datadir,filelab,itstart,itfin)
 
 
 % PLOTS THE VELOCITY FLOWS (AND MAKES A MOVIE)
 fprintf('AMISR --> Quiver plots\n');
-plot_ISRflows(filelab,itstart,itfin,opflag)
+plot_ISRflows(datadir,filelab,itstart,itfin,opflag)
 
 fprintf('All Done!\n')
 

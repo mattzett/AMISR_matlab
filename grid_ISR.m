@@ -1,4 +1,4 @@
-function grid_ISR(filelab)
+function grid_ISR(datadir,filelab)
 
 %This script computes positions of each beam in a local ENU coordinate
 %system.  This system is used by the velocity fitting routine.  
@@ -11,7 +11,7 @@ function grid_ISR(filelab)
 %    interpolates onto a field line grid, which we don't need for now, but
 %    keep the commented code in case it is useful later on.
 
-load(['./datasets/data_mat/',filelab,'_rawdata.mat']); % This is redundant but useful when working the code in segments
+load([datadir,'/data_mat/',filelab,'_rawdata.mat']); % This is redundant but useful when working the code in segments
 
 % tic
 % fprintf('ISR2FIELDGRID.M --> Calculating field lines\n');
@@ -68,7 +68,7 @@ ang=repmat(aspect_ang',lr,1);
 
 %SAVE THE GRID INFORMATION
 filelab=datestr(exp_date(1,:),'ddmmmyyyy');
-save(['./datasets/data_mat/',filelab,'_',num2str(tint),'min','_fieldgrid.mat'],'exp_date','az','el','R*','B*','tint','zen*');
+save([datadir,'/data_mat/',filelab,'_',num2str(tint),'min','_fieldgrid.mat'],'exp_date','az','el','R*','B*','tint','zen*');
 
 
 % rmpath ./geom

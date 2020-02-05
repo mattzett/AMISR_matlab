@@ -1,4 +1,4 @@
-function fileout=hdf5_extract(filename,saveflag)
+function fileout=hdf5_extract(datadir,filename,saveflag)
 %This script reads in the amisr hdf5 files that are posted on SRIs website:
 % http://amisr.com/amisr/links/data-access/  .  Note that, depending on when
 % the data were fitted, the exact parameters in the "Fits" array may
@@ -6,8 +6,8 @@ function fileout=hdf5_extract(filename,saveflag)
 % is to look at the metadata in the hdf5 file.
 
 %PATH AND FILENAME
-path='./datasets/data_hdf5/';
-
+%path='./datasets/data_hdf5/';
+path=[datadir,'/','data_hdf5/'];
 
 %LOOK INSIDE THE h5 FILE
 % h5disp([path,filename])
@@ -95,7 +95,7 @@ tint=round(10*tint)/10;
 %SAVE TO A .MAT FILE FOR FURTHER PROCESSING
 filelab=datestr(exp_date(1,:),'ddmmmyyyy');
 if saveflag==1
-    save(['./datasets/data_mat/',filelab,'_',num2str(tint),'min','_rawdata.mat'],'is*','exp_date','az','el','tint','beam*','SNR');
+    save([datadir,'/data_mat/',filelab,'_',num2str(tint),'min','_rawdata.mat'],'is*','exp_date','az','el','tint','beam*','SNR');
 end
 fileout=[filelab,'_',num2str(tint),'min'];
 end

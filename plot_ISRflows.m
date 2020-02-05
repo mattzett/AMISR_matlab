@@ -1,11 +1,11 @@
-function plot_ISRflows(filelab,itstart,itfin,opflag)
+function plot_ISRflows(datadir,filelab,itstart,itfin,opflag)
 
 %This script plots the ISR data at a set altitude along with the flow fields
 
 
-load(['./datasets/data_mat/',filelab,'_rawdata.mat']);
-load(['./datasets/data_mat/',filelab,'_fieldgrid.mat']);
-load(['./datasets/data_mat/',filelab,'_vvelscans.mat']);
+load([datadir,'/data_mat/',filelab,'_rawdata.mat']);
+load([datadir,'/data_mat/',filelab,'_fieldgrid.mat']);
+load([datadir,'/data_mat/',filelab,'_vvelscans.mat']);
 
 
 %SIZE OF DATA SET

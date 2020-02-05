@@ -1,4 +1,4 @@
-function estimate_flowfield(filelab,itstart,itfin)
+function estimate_flowfield(datadir,filelab,itstart,itfin)
 
 %This script computes the ISR flow field according to the method presented 
 % in Semeter et al, 2010 and Butler et al, 2010:
@@ -8,8 +8,8 @@ function estimate_flowfield(filelab,itstart,itfin)
 
 
 %PROCESSED LONGPULSE DATA
-load(['./datasets/data_mat/',filelab,'_rawdata.mat']); % This is redundant but useful when working the code in segments
-load(['./datasets/data_mat/',filelab,'_fieldgrid.mat']);
+load([datadir,'/data_mat/',filelab,'_rawdata.mat']); % This is redundant but useful when working the code in segments
+load([datadir,'/data_mat/',filelab,'_fieldgrid.mat']);
 
 
 %SIZE OF DATA SET
@@ -164,7 +164,7 @@ Zvg=temp(:,3);
 
 %SAVE PROCESSED DATA TO OUTPUT FILE
 filelab2=datestr(exp_date(1,:),'ddmmmyyyy');
-save(['./datasets/data_mat/',filelab2,'_',num2str(tint),'min','_vvelscans.mat'], ...
+save([datadir,'/data_mat/',filelab2,'_',num2str(tint),'min','_vvelscans.mat'], ...
     'vest','vest_geog','Nx','Ny','range_idx','Xv*','Yv*','Zv*','xv*','yv*','Rgmag');
 
 
@@ -203,6 +203,6 @@ ylabel('dist N (km)');
 c=colorbar;
 ylabel(c,'northward drift (m/s)');
 
-print(['./plot_imgfiles/',filelab,'/drift_keo.png'],'-dpng','-r300') 
+print([datadir,'/plot_imgfiles/',filelab,'/drift_keo.png'],'-dpng','-r300') 
 
 end
