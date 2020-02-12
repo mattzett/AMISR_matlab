@@ -35,7 +35,7 @@ fprintf(['AMISR --> File selected: ',filelab,'\n'])
 
 % SETUP IMAGE STORAGE LOCATION
 fprintf('AMISR --> Setting up storage locations\n');
-outdir=['~/Downloads/plot_imgfiles/',filelab];
+outdir=[datadir,'/plot_imgfiles/',filelab];
 if ~exist(outdir)
     mkdir(outdir);
 else

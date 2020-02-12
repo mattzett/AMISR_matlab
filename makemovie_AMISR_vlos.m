@@ -8,7 +8,7 @@ load([datadir,'/data_mat/',filelab,'_rawdata.mat']);
 load([datadir,'/data_mat/',filelab,'_fieldgrid.mat']);
 
 
-outdir=['./plot_imgfiles/',filelab,'/PFISR/'];
+outdir=[datadir,'/plot_imgfiles/',filelab,'/PFISR/'];
 if ~exist(outdir)
     mkdir(outdir);
 else
